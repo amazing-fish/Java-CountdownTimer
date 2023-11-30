@@ -16,8 +16,8 @@ import javafx.animation.KeyFrame;
 import java.awt.Toolkit;
 
 public class CountdownTimer extends Application {
-    private static final String INITIAL_TIME_FORMAT = "00";
     private static final int TEXT_FIELD_WIDTH = 3;
+    private static final String DEFAULT_VALUE = "00";
     private static final String COUNTDOWN_FINISHED_TEXT = "时间到！";
     private static final String INVALID_TIME_TEXT = "请输入有效的时间！";
     private static final String START_BUTTON_TEXT = "开始";
@@ -49,12 +49,18 @@ public class CountdownTimer extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        hourField = createTextField(INITIAL_TIME_FORMAT);
-        minuteField = createTextField(INITIAL_TIME_FORMAT);
-        secondField = createTextField(INITIAL_TIME_FORMAT);
+        // 添加标签
+        Label hourLabel = new Label("时");
+        Label minuteLabel = new Label("分");
+        Label secondLabel = new Label("秒");
+
+        hourField = createTextField(DEFAULT_VALUE);
+        minuteField = createTextField(DEFAULT_VALUE);
+        secondField = createTextField(DEFAULT_VALUE);
 
         Button startButton = new Button(START_BUTTON_TEXT);
         startButton.setOnAction(e -> startCountdown());
+        Platform.runLater(startButton::requestFocus);
 
         toggleButton = new Button(PAUSE_BUTTON_TEXT);
         toggleButton.setOnAction(e -> toggleCountdown());
@@ -66,19 +72,28 @@ public class CountdownTimer extends Application {
         progressBar = new ProgressBar(0);
         progressBar.setPrefWidth(300);
 
-        HBox timeFields = new HBox(5, hourField, minuteField, secondField);
-        timeFields.setAlignment(Pos.CENTER);
+        // 将标签和输入框放在一起
+        GridPane inputGrid = new GridPane();
+        inputGrid.setHgap(5);
+        inputGrid.setVgap(5);
+        inputGrid.add(hourLabel, 0, 0);
+        inputGrid.add(hourField, 1, 0);
+        inputGrid.add(minuteLabel, 0, 1);
+        inputGrid.add(minuteField, 1, 1);
+        inputGrid.add(secondLabel, 0, 2);
+        inputGrid.add(secondField, 1, 2);
 
         HBox buttons = new HBox(10, startButton, toggleButton);
         buttons.setAlignment(Pos.CENTER);
 
-        grid.add(timeFields, 0, 0);
+        grid.add(inputGrid, 0, 0);
         grid.add(buttons, 0, 1);
         grid.add(timeLabel, 0, 2);
         grid.add(progressBar, 0, 3);
 
         return grid;
     }
+
 
     private void initializeCountdownMechanism() {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> updateCountdown()));
@@ -98,6 +113,20 @@ public class CountdownTimer extends Application {
     private TextField createTextField(String defaultValue) {
         TextField field = new TextField(defaultValue);
         field.setPrefColumnCount(TEXT_FIELD_WIDTH);
+
+        // 当文本框获得焦点时，如果内容为初始值，则清空
+        field.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused && field.getText().equals(DEFAULT_VALUE)) {
+                field.clear();
+            }
+        });
+        field.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused && field.getText().isEmpty()) {
+                field.setText(DEFAULT_VALUE);
+            }
+        });
+
+
         return field;
     }
 
