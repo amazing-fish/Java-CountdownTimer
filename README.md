@@ -9,3 +9,10 @@
 - 结束提醒
 ### 展示
  ![倒计时器](https://github.com/amazing-fish/Java-CountdownTimer/assets/71763696/e3682a9b-0e58-4dd1-b49f-73575cc3de2f)
+
+### 更新
+- 重构为MVC架构 11.30
+
+### 待更新
+- 美化界面
+- 增加功能
