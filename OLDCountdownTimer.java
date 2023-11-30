@@ -15,7 +15,7 @@ import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import java.awt.Toolkit;
 
-public class CountdownTimer extends Application {
+public class OLDCountdownTimer extends Application {
     private static final int TEXT_FIELD_WIDTH = 3;
     private static final String DEFAULT_VALUE = "00";
     private static final String COUNTDOWN_FINISHED_TEXT = "时间到！";
