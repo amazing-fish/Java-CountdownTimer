@@ -1,6 +1,13 @@
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 
+/**
+    该类定义了倒计时计时器的核心功能，包括时间的管理和格式化。
+    它使用 JavaFX 的 LongProperty 来跟踪和更新剩余时间，
+    这使得可以轻松地将这些数据绑定到用户界面上，实现实时更新。
+    通过分离计时器的逻辑和状态管理，
+    这个模型为倒计时应用程序提供了一个可重用和可扩展的数据核心。
+**/
 public class CountdownTimerModel {
     // remainingSeconds 是一个 LongProperty，用于跟踪剩余的秒数。
     private LongProperty remainingSeconds = new SimpleLongProperty();
