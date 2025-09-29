@@ -6,8 +6,10 @@ import com.zen.timer.service.ThemeManager;
 import com.zen.timer.viewmodel.CountdownViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,6 +23,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
@@ -41,9 +44,9 @@ public class CountdownView {
         BorderPane root = new BorderPane();
         root.getStyleClass().add("app-root");
 
-        VBox center = new VBox(24);
-        center.setAlignment(Pos.CENTER);
-        center.setPadding(new Insets(32));
+        VBox center = new VBox(36);
+        center.setAlignment(Pos.TOP_CENTER);
+        center.setPadding(new Insets(36, 48, 48, 48));
 
         Label title = new Label("Nebula 倒计时中心");
         title.getStyleClass().add("app-title");
@@ -81,9 +84,11 @@ public class CountdownView {
         statusLabel.textProperty().bind(viewModel.statusMessageProperty());
 
         VBox displayCard = new VBox(16, timeDisplay, progressBar, finishLabel, statusLabel);
-        displayCard.getStyleClass().add("display-card");
+        displayCard.getStyleClass().addAll("display-card", "hero-card");
         displayCard.setAlignment(Pos.CENTER);
-        displayCard.setPadding(new Insets(24));
+        displayCard.setPadding(new Insets(28));
+        displayCard.setMinWidth(360);
+        displayCard.setMaxWidth(420);
 
         Spinner<Integer> hourSpinner = new Spinner<>();
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
@@ -96,7 +101,7 @@ public class CountdownView {
         minuteSpinner.disableProperty().bind(viewModel.allowEditsProperty().not());
         secondSpinner.disableProperty().bind(viewModel.allowEditsProperty().not());
 
-        HBox timeInputs = new HBox(16,
+        HBox timeInputs = new HBox(18,
                 labeledBox("小时", hourSpinner),
                 labeledBox("分钟", minuteSpinner),
                 labeledBox("秒钟", secondSpinner));
@@ -107,27 +112,80 @@ public class CountdownView {
         presetPane.setHgap(12);
         presetPane.setVgap(12);
         presetPane.setAlignment(Pos.CENTER);
+        presetPane.setPrefWrapLength(420);
         presetPane.getStyleClass().add("preset-pane");
 
         bindPresets(presetPane, hourSpinner, minuteSpinner, secondSpinner);
 
         HBox controlBar = buildControlBar(hourSpinner, minuteSpinner, secondSpinner);
+        controlBar.setAlignment(Pos.CENTER_LEFT);
 
         ToggleButton themeToggle = new ToggleButton();
         themeToggle.getStyleClass().add("theme-toggle");
+        themeToggle.setPrefWidth(220);
+        themeToggle.setMinWidth(160);
         themeToggle.selectedProperty().bindBidirectional(themeManager.darkModeProperty());
         themeToggle.textProperty().bind(Bindings.when(themeManager.darkModeProperty())
                 .then("夜间模式")
                 .otherwise("日间模式"));
         themeToggle.setTooltip(new Tooltip("切换整体视觉主题"));
 
-        Circle halo = new Circle(140);
+        Circle halo = new Circle(170);
         halo.getStyleClass().add("halo-circle");
+        halo.setMouseTransparent(true);
+
+        StackPane heroStack = new StackPane(halo, displayCard);
+        heroStack.getStyleClass().add("hero-stack");
+
+        FlowPane columns = new FlowPane();
+        columns.getStyleClass().add("content-columns");
+        columns.setHgap(32);
+        columns.setVgap(32);
+        columns.setAlignment(Pos.TOP_CENTER);
+        columns.setPrefWrapLength(860);
+        columns.setColumnHalignment(HPos.CENTER);
+        columns.setRowValignment(VPos.TOP);
+
+        VBox leftColumn = new VBox(heroStack);
+        leftColumn.getStyleClass().add("content-column");
+        leftColumn.setAlignment(Pos.TOP_CENTER);
+        leftColumn.setPrefWidth(420);
+        leftColumn.setMinWidth(360);
+
+        Label timingTitle = new Label("自定义节奏");
+        timingTitle.getStyleClass().add("section-title");
+
+        VBox timingCard = new VBox(18, timingTitle, timeInputs, presetPane);
+        timingCard.getStyleClass().add("side-card");
+        timingCard.setAlignment(Pos.TOP_CENTER);
+        timingCard.setPrefWidth(420);
+        timingCard.setMinWidth(360);
+
+        Label controlTitle = new Label("操控面板");
+        controlTitle.getStyleClass().add("section-title");
+
+        HBox themeToggleRow = new HBox(themeToggle);
+        themeToggleRow.setAlignment(Pos.CENTER);
+        themeToggleRow.getStyleClass().add("theme-toggle-row");
+
+        VBox controlCard = new VBox(18, controlTitle, controlBar, themeToggleRow);
+        controlCard.getStyleClass().add("side-card");
+        controlCard.setAlignment(Pos.TOP_CENTER);
+        controlCard.setPrefWidth(420);
+        controlCard.setMinWidth(360);
+
+        VBox rightColumn = new VBox(24, timingCard, controlCard);
+        rightColumn.getStyleClass().add("content-column");
+        rightColumn.setAlignment(Pos.TOP_CENTER);
+        rightColumn.setPrefWidth(420);
+        rightColumn.setMinWidth(360);
+
+        columns.getChildren().addAll(leftColumn, rightColumn);
 
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
 
-        center.getChildren().addAll(header, halo, displayCard, timeInputs, presetPane, controlBar, themeToggle, spacer);
+        center.getChildren().addAll(header, columns, spacer);
         root.setCenter(center);
 
         Scene scene = new Scene(root, 900, 640);
