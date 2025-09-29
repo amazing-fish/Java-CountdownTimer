@@ -27,9 +27,25 @@ src/
          └─ com/zen/timer/styles/ # JavaFX 样式资源
 ```
 
-## 运行方式
+## 构建与运行
 
-确保已正确配置 JavaFX 模块路径后运行主类，例如：
+### Maven 一键运行（推荐）
+
+项目已经内置 `pom.xml`，会自动下载匹配当前操作系统的 JavaFX 依赖，只需执行：
+
+```bash
+mvn clean javafx:run
+```
+
+若只需编译，可运行：
+
+```bash
+mvn -DskipTests package
+```
+
+### 手动命令行运行
+
+如果你仍希望手动控制 JavaFX 模块路径，可在下载 OpenJFX SDK 后使用以下命令：
 
 ```bash
 javac --module-path $JAVAFX_HOME/lib --add-modules javafx.controls,javafx.graphics -d out \
@@ -37,12 +53,6 @@ javac --module-path $JAVAFX_HOME/lib --add-modules javafx.controls,javafx.graphi
 java --module-path $JAVAFX_HOME/lib --add-modules javafx.controls,javafx.graphics \
     -cp out com.zen.timer.app.CountdownTimerApp
 ```
-
-如使用 Maven/Gradle，可在各自的构建脚本中引入 JavaFX 依赖后执行 `com.zen.timer.app.CountdownTimerApp` 主类。
-
-## 截图
-
-> 可在运行程序后，使用系统截图工具捕获日间/夜间主题的效果。
 
 ## 许可证
 

@@ -9,6 +9,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -45,7 +47,7 @@ public class CountdownViewModel {
     private final ObservableList<PresetDuration> presets = FXCollections.observableArrayList();
     private final ReadOnlyObjectWrapper<PresetDuration> activePreset = new ReadOnlyObjectWrapper<>();
 
-    private final ReadOnlyObjectWrapper<Double> progress = new ReadOnlyObjectWrapper<>(0.0);
+    private final ReadOnlyDoubleWrapper progress = new ReadOnlyDoubleWrapper(0.0);
 
     public CountdownViewModel(TimerService timerService, SoundService soundService) {
         this.timerService = timerService;
@@ -155,7 +157,7 @@ public class CountdownViewModel {
         return statusMessage;
     }
 
-    public ReadOnlyObjectProperty<Double> progressProperty() {
+    public ReadOnlyDoubleProperty progressProperty() {
         return progress.getReadOnlyProperty();
     }
 
