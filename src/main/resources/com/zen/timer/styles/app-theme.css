@@ -7,11 +7,6 @@
     -fx-padding: 24px;
 }
 
-.app-scroll {
-    -fx-background-color: transparent;
-    -fx-padding: 0;
-}
-
 .app-root.theme-light {
     -fx-background-color: linear-gradient(to bottom right, #f7f8ff, #e3eeff);
 }
@@ -41,49 +36,16 @@
     -fx-text-fill: rgba(26, 42, 108, 0.7);
 }
 
-.display-card,
-.content-card {
+.display-card {
     -fx-background-color: rgba(255, 255, 255, 0.08);
     -fx-background-radius: 20;
     -fx-border-color: rgba(255, 255, 255, 0.25);
     -fx-border-radius: 20;
 }
 
-.theme-light .display-card,
-.theme-light .content-card {
+.theme-light .display-card {
     -fx-background-color: rgba(255, 255, 255, 0.9);
     -fx-border-color: rgba(26, 42, 108, 0.2);
-}
-
-.card-title {
-    -fx-text-fill: white;
-    -fx-font-size: 20px;
-    -fx-font-weight: 700;
-}
-
-.theme-light .card-title {
-    -fx-text-fill: #1a2a6c;
-}
-
-.card-subtitle {
-    -fx-text-fill: rgba(255, 255, 255, 0.7);
-    -fx-font-size: 13px;
-    -fx-line-spacing: 2px;
-}
-
-.theme-light .card-subtitle {
-    -fx-text-fill: rgba(26, 42, 108, 0.6);
-}
-
-.section-title {
-    -fx-text-fill: rgba(255, 255, 255, 0.75);
-    -fx-font-size: 12px;
-    -fx-font-weight: 600;
-    -fx-letter-spacing: 0.3em;
-}
-
-.theme-light .section-title {
-    -fx-text-fill: rgba(26, 42, 108, 0.65);
 }
 
 .time-display {
@@ -240,70 +202,4 @@
 
 .theme-light .halo-circle {
     -fx-fill: radial-gradient(center 50% 50%, radius 75%, rgba(90,120,255,0.35), rgba(255,255,255,0));
-}
-
-.roadmap-item {
-    -fx-background-color: rgba(255, 255, 255, 0.06);
-    -fx-background-radius: 16;
-    -fx-padding: 14 18 14 18;
-}
-
-.theme-light .roadmap-item {
-    -fx-background-color: rgba(26, 42, 108, 0.08);
-}
-
-.roadmap-phase {
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-weight: 600;
-}
-
-.theme-light .roadmap-phase {
-    -fx-text-fill: #1a2a6c;
-}
-
-.roadmap-focus {
-    -fx-text-fill: rgba(255, 255, 255, 0.75);
-    -fx-font-size: 13px;
-}
-
-.theme-light .roadmap-focus {
-    -fx-text-fill: rgba(26, 42, 108, 0.7);
-}
-
-.roadmap-status {
-    -fx-background-radius: 999;
-    -fx-padding: 4 14 4 14;
-    -fx-font-size: 12px;
-    -fx-font-weight: 700;
-    -fx-text-fill: white;
-    -fx-translate-y: 4px;
-}
-
-.status-active {
-    -fx-background-color: rgba(76, 175, 80, 0.55);
-}
-
-.status-planned {
-    -fx-background-color: rgba(255, 193, 7, 0.55);
-}
-
-.status-future {
-    -fx-background-color: rgba(59, 130, 246, 0.55);
-}
-
-.theme-light .roadmap-status {
-    -fx-text-fill: #1a2a6c;
-}
-
-.theme-light .status-active {
-    -fx-background-color: rgba(76, 175, 80, 0.18);
-}
-
-.theme-light .status-planned {
-    -fx-background-color: rgba(255, 193, 7, 0.22);
-}
-
-.theme-light .status-future {
-    -fx-background-color: rgba(59, 130, 246, 0.2);
 }
