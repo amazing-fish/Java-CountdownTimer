@@ -1,39 +1,63 @@
-# Java-CountdownTimer
+# Nebula 倒计时中心
 
-## Java编写的倒计时器
+全新架构的 JavaFX 倒计时应用，采用模块化依赖注入 + MVVM 设计，以更具审美的 UI 与更强大的功能打造沉浸式的时间管理体验。
 
-这是一个使用JavaFX构建的简单而功能丰富的倒计时器应用程序。它使用MVC（模型-视图-控制器）架构来组织代码，确保了高度的模块化和可维护性。
+## 主要特性
 
-### 功能
+- 🎨 **双主题高颜值界面**：内置日间 / 夜间模式，可随时切换，配合渐变背景、光晕与卡片化布局，呈现现代设计语言。
+- 🧠 **MVVM 架构重塑**：独立的 `TimerService`、`SoundService`、`ThemeManager` 等服务模块，通过 `CountdownViewModel` 与界面解耦，逻辑更清晰、扩展更容易。
+- ⏱️ **专业计时能力**：支持开始、暂停、继续、复位等完整控制流程，并实时显示预计完成时间与进度条。
+- ⚡ **高效预设管理**：内置番茄钟、短休息、深度工作等多个预设，一键加载到输入面板，快速进入专注状态。
+- 🔔 **完成提醒**：倒计时结束自动播放提示音，确保重要时刻不错过。
 
-- **设置时间开始倒计时**：用户可以设置小时、分钟和秒，启动倒计时。
-- **暂停和继续**：在倒计时过程中，用户可以暂停计时器，并在需要时继续。
-- **直接重设倒计时**：允许用户随时重置倒计时器，开始新的计时。
-- **最后一分钟标红**：当计时器进入最后一分钟时，时间显示会变为红色。
-- **倒计时进度条**：图形化展示倒计时的进度。
-- **结束提醒**：倒计时结束时，应用程序将显示提醒并发出声音。
+## 项目结构
 
-### 展示
+```
+src/
+ └─ main/
+     ├─ java/
+     │   └─ com/zen/timer/
+     │       ├─ app/              # 应用入口与依赖容器
+     │       ├─ model/            # 领域模型（状态、预设）
+     │       ├─ service/          # 业务服务（计时、主题、声音）
+     │       ├─ util/             # 公共工具
+     │       ├─ view/             # UI 视图层
+     │       └─ viewmodel/        # MVVM 视图模型
+     └─ resources/
+         └─ com/zen/timer/styles/ # JavaFX 样式资源
+```
 
-![倒计时器](https://github.com/amazing-fish/Java-CountdownTimer/assets/71763696/e3682a9b-0e58-4dd1-b49f-73575cc3de2f)
+## 构建与运行
 
-### 更新
+### Maven 一键运行（推荐）
 
-- **2023-11-30**：重构为MVC架构，提高了代码的组织性和可维护性。
+项目已经内置 `pom.xml`，会自动下载匹配当前操作系统的 JavaFX 依赖，只需执行：
 
-### 待更新
+```bash
+mvn clean javafx:run
+```
 
-- **美化界面**：计划使用CSS样式表和动画效果来增强用户界面的视觉吸引力。
-- **增加预设时间和重复计时功能**：允许用户快速选择常用的时间间隔，并设置倒计时器自动重复。
-- **持续优化**：不断优化代码结构和性能，考虑采用更高级的架构模式以支持新功能和更好的用户体验。
-- **发布为jar包**
+若只需编译，可运行：
 
-### 如何使用（待打包）
+```bash
+mvn -DskipTests package
+```
 
-请确保您的系统已安装Java和JavaFX。克隆仓库后，使用以下命令运行程序：
+### 手动命令行运行
 
-    java CountdownTimer
+如果你仍希望手动控制 JavaFX 模块路径，可在下载 OpenJFX SDK 后使用以下命令：
 
-### 贡献
+```bash
+javac --module-path $JAVAFX_HOME/lib --add-modules javafx.controls,javafx.graphics -d out \
+    $(find src/main/java -name "*.java")
+java --module-path $JAVAFX_HOME/lib --add-modules javafx.controls,javafx.graphics \
+    -cp out com.zen.timer.app.CountdownTimerApp
+```
 
-我们欢迎所有形式的贡献，无论是功能建议、代码提交还是问题报告。请使用GitHub的问题追踪和拉取请求功能来参与项目。
+## 截图
+
+> 可在运行程序后，使用系统截图工具捕获日间/夜间主题的效果。
+
+## 许可证
+
+本项目遵循 [MIT License](LICENSE)。
