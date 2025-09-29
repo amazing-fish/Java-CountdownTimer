@@ -48,6 +48,57 @@
     -fx-border-color: rgba(26, 42, 108, 0.2);
 }
 
+.content-columns {
+    -fx-alignment: top-center;
+    -fx-padding: 12 0 0 0;
+}
+
+.content-column {
+    -fx-spacing: 24px;
+    -fx-alignment: top-center;
+}
+
+.hero-stack {
+    -fx-padding: 12;
+}
+
+.hero-card {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 25, 0.35, 0, 18);
+}
+
+.theme-light .hero-card {
+    -fx-effect: dropshadow(gaussian, rgba(26, 42, 108, 0.18), 22, 0.45, 0, 10);
+}
+
+.side-card {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.18);
+    -fx-border-radius: 20;
+    -fx-padding: 24;
+    -fx-spacing: 18;
+}
+
+.theme-light .side-card {
+    -fx-background-color: rgba(255, 255, 255, 0.92);
+    -fx-border-color: rgba(26, 42, 108, 0.12);
+}
+
+.section-title {
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-font-size: 15px;
+    -fx-letter-spacing: 0.24em;
+}
+
+.theme-light .section-title {
+    -fx-text-fill: rgba(26, 42, 108, 0.78);
+}
+
+.theme-toggle-row {
+    -fx-alignment: center;
+    -fx-padding: 8 0 0 0;
+}
+
 .time-display {
     -fx-font-size: 72px;
     -fx-font-weight: 700;
