@@ -54,10 +54,6 @@ java --module-path $JAVAFX_HOME/lib --add-modules javafx.controls,javafx.graphic
     -cp out com.zen.timer.app.CountdownTimerApp
 ```
 
-## 截图
-
-> 可在运行程序后，使用系统截图工具捕获日间/夜间主题的效果。
-
 ## 许可证
 
 本项目遵循 [MIT License](LICENSE)。
